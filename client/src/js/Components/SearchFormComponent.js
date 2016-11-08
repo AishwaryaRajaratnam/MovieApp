@@ -16,6 +16,7 @@ var SearchFormComponent = React.createClass({
   render: function() {
     return (
       <div>
+
         <div className='well searchform'>
           <input className='searchbox' type='text' placeholder='Enter movie title..' onChange={this.handleTitle}></input>
           <button className='btn btn-warning' onClick={this.handleClick}>Search</button>

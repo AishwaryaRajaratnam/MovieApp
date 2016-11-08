@@ -6,14 +6,15 @@ router.route("/add")
 .post(function(req, res){
   if(req.body){
     var movieVar = new Movie(req.body);
+
     movieVar.save(function(err){
       if(err)
       {
         res.send(err);
       }
       else {
-        console.log("Movie inserted in Mongo")
-        res.send("Movie inserted");
+        console.log("Movie inserted in Mongo");
+        res.send("Movie added successfully");
       }
     })
   }
@@ -28,7 +29,7 @@ router.route("/remove/:movieId")
         res.send(err);
       }
       else {
-        console.log("Movie deleted from Mongo")
+        console.log("Movie deleted from Mongo");
         res.send("Movie deleted");
       }
     })
@@ -37,9 +38,10 @@ router.route("/remove/:movieId")
 
 router.route("/update")
 .put(function(req, res){
+  console.log("put req called" +req.body.imdbID+"    "+req.body.Review);
   if(req.body){
 
-    Movie.update({ imdbID: req.body.imdbID }, { title: req.body.title },function(err){
+    Movie.update({ imdbID: req.body.imdbID }, { Review: req.body.Review },function(err){
       if(err)
       {
         res.send(err);

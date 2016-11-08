@@ -8,14 +8,14 @@ var ContainerComponent = React.createClass({
 
     var movies = this.props.movieArray.map(function(movie){
 
-      return <MovieBoxComponent title={movie.Title} year={movie.Year} imdbid={movie.imdbID} poster={movie.Poster}/>
+      return <MovieBoxComponent movieInfo={movie} title={movie.Title} year={movie.Year} imdbid={movie.imdbID} poster={movie.Poster} review={movie.Review}/>
 
     });
-  console.log('ContainerComponent map return'+ movies);
+  //console.log('ContainerComponent map return'+ movies);
 
     return (
      <div>
-     
+
       {movies}
       </div>
 

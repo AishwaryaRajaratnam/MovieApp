@@ -9,8 +9,8 @@ router.route("/add")
     var userVar = new User(req.body);
     /*----alternativly
     var userVar = new User();
-    userVar.username=req.bosy.username;
-    userVar.password=req.bosy.password;
+    userVar.username=req.body.username;
+    userVar.password=req.body.password;
     */userVar.save(function(err){
       if(err)
       {

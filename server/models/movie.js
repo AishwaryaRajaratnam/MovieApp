@@ -2,10 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var movieDetailsSchema = new Schema({
-  title: String,
-  year: Number,
+  Title: String,
+  Year: Number,
   imdbID: String,
-  poster: String
+  Type: String,
+  Poster: String,
+  Review: String
 
   //: String
 });
