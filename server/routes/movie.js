@@ -38,7 +38,7 @@ router.route("/remove/:movieId")
 
 router.route("/update")
 .put(function(req, res){
-  console.log("put req called" +req.body.imdbID+"    "+req.body.Review);
+  console.log("put req called " +req.body.imdbID+"    "+req.body.Review);
   if(req.body){
 
     Movie.update({ imdbID: req.body.imdbID }, { Review: req.body.Review },function(err){
@@ -66,9 +66,8 @@ router.route("/")
         res.send(err);
       }
       else {
-        console.log("All movies in MongoDB fetched")
+        console.log("All movies in MongoDB fetched res ");
         var movieMap = {};
-
         allMovies.forEach(function(mov) {
           movieMap[mov._id] = mov;
         });
