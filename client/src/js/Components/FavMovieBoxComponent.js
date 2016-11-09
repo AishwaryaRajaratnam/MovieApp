@@ -9,8 +9,8 @@ var FavMovieBoxComponent = React.createClass({
       var updatedReview= this.refs.review.value;
     console.log("Review submitted  --"+ this.refs.review.value+ "   iiiiiiiiiii     "+updatedReview)
      var updateObj={imdbID:this.refs.movieId.id,Review:updatedReview};
-     var updateJSON=JSON.stringify(updateObj);
-     console.log(updateJSON);
+     //var updateJSON=JSON.stringify(updateObj);
+     //console.log(updateJSON);
 
     $.ajax({
       url:"http://localhost:8080/movie/update",
@@ -18,8 +18,8 @@ var FavMovieBoxComponent = React.createClass({
       data: updateObj,
       success: function(msg)
       {
+
         alert(msg);
-        //console.log("Movie added successfully");
       }.bind(this),
       error: function(err)
       {
@@ -27,6 +27,7 @@ var FavMovieBoxComponent = React.createClass({
         console.log(err);
       }.bind(this)
      });
+     this.props.updateGParent(updateObj.imdbID, updateObj.Review);
   },
   handleDeleteMovie: function()
   {
@@ -37,6 +38,7 @@ var FavMovieBoxComponent = React.createClass({
       //dataType:'JSON',
       success: function(msg)
       {
+         this.props.updateGParent(this.props.movieInfo.imdbID);
         alert(msg);
         console.log("Movies deleted from mongodb");
       }.bind(this),
@@ -46,7 +48,7 @@ var FavMovieBoxComponent = React.createClass({
         console.log(err);
       }.bind(this)
      });
-     this.props.updateGParent(this.props.movieInfo.imdbID);
+
   },
 
   render : function()

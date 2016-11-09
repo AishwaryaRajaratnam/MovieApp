@@ -4,7 +4,7 @@ var {Link} = require('react-router');
 var NavBarComponent = React.createClass({
   render: function() {
     return (
-      <div className="container-fluid myNav">
+      <div className="container myNav">
       <ul className="nav navbar-nav">
       <li><Link to="/home">Home</Link></li>
       <li><Link to="/favmovie">Favorite Movies</Link></li>

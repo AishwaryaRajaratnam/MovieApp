@@ -26227,8 +26227,8 @@ var FavMovieBoxComponent = React.createClass({displayName: "FavMovieBoxComponent
       var updatedReview= this.refs.review.value;
     console.log("Review submitted  --"+ this.refs.review.value+ "   iiiiiiiiiii     "+updatedReview)
      var updateObj={imdbID:this.refs.movieId.id,Review:updatedReview};
-     var updateJSON=JSON.stringify(updateObj);
-     console.log(updateJSON);
+     //var updateJSON=JSON.stringify(updateObj);
+     //console.log(updateJSON);
 
     $.ajax({
       url:"http://localhost:8080/movie/update",
@@ -26236,8 +26236,8 @@ var FavMovieBoxComponent = React.createClass({displayName: "FavMovieBoxComponent
       data: updateObj,
       success: function(msg)
       {
+
         alert(msg);
-        //console.log("Movie added successfully");
       }.bind(this),
       error: function(err)
       {
@@ -26245,6 +26245,7 @@ var FavMovieBoxComponent = React.createClass({displayName: "FavMovieBoxComponent
         console.log(err);
       }.bind(this)
      });
+     this.props.updateGParent(updateObj.imdbID, updateObj.Review);
   },
   handleDeleteMovie: function()
   {
@@ -26255,6 +26256,7 @@ var FavMovieBoxComponent = React.createClass({displayName: "FavMovieBoxComponent
       //dataType:'JSON',
       success: function(msg)
       {
+         this.props.updateGParent(this.props.movieInfo.imdbID);
         alert(msg);
         console.log("Movies deleted from mongodb");
       }.bind(this),
@@ -26264,7 +26266,7 @@ var FavMovieBoxComponent = React.createClass({displayName: "FavMovieBoxComponent
         console.log(err);
       }.bind(this)
      });
-     this.props.updateGParent(this.props.movieInfo.imdbID);
+
   },
 
   render : function()
@@ -26358,7 +26360,8 @@ var FavoriteComponent = React.createClass({displayName: "FavoriteComponent",
      });
 
   },
-  updateParentState: function(id){
+  updateParentState: function(id,review){
+        console.log("inside updateParentState");
     var removeByAttr = function(arr, attr, value){
     var i = arr.length;
     while(i--){
@@ -26371,10 +26374,25 @@ var FavoriteComponent = React.createClass({displayName: "FavoriteComponent",
        }
     }
     return arr;
-}
-var updatedfavdata=removeByAttr(this.state.favdata,'imdbID',id);
-this.setState({favdata:updatedfavdata});
+  }
 
+if(review===undefined)
+{
+  var updatedfavdata=removeByAttr(this.state.favdata,'imdbID',id);
+  this.setState({favdata:updatedfavdata});
+}
+else
+  {
+  var index;
+  var arr=this.state.favdata;
+  arr.some(function(ele)
+	{
+	if(ele.imdbID === id)
+	ele.Review=review;
+	}
+  );
+    this.setState({favdata:arr});
+  }
   },
   componentDidMount: function()
   {
@@ -26502,7 +26520,7 @@ var {Link} = require('react-router');
 var NavBarComponent = React.createClass({displayName: "NavBarComponent",
   render: function() {
     return (
-      React.createElement("div", {className: "container-fluid myNav"}, 
+      React.createElement("div", {className: "container myNav"}, 
       React.createElement("ul", {className: "nav navbar-nav"}, 
       React.createElement("li", null, React.createElement(Link, {to: "/home"}, "Home")), 
       React.createElement("li", null, React.createElement(Link, {to: "/favmovie"}, "Favorite Movies")), 
@@ -26535,10 +26553,10 @@ var SearchFormComponent = React.createClass({displayName: "SearchFormComponent",
     return (
       React.createElement("div", null, 
 
-        React.createElement("div", {className: "well searchform"}, 
+      React.createElement("div", {className: "well searchform"}, 
           React.createElement("input", {className: "searchbox", type: "text", placeholder: "Enter movie title..", onChange: this.handleTitle}), 
           React.createElement("button", {className: "btn btn-warning", onClick: this.handleClick}, "Search")
-        )
+      )
       )
     );
   }

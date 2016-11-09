@@ -26,7 +26,8 @@ var FavoriteComponent = React.createClass({
      });
 
   },
-  updateParentState: function(id){
+  updateParentState: function(id,review){
+        console.log("inside updateParentState");
     var removeByAttr = function(arr, attr, value){
     var i = arr.length;
     while(i--){
@@ -39,10 +40,25 @@ var FavoriteComponent = React.createClass({
        }
     }
     return arr;
-}
-var updatedfavdata=removeByAttr(this.state.favdata,'imdbID',id);
-this.setState({favdata:updatedfavdata});
+  }
 
+if(review===undefined)
+{
+  var updatedfavdata=removeByAttr(this.state.favdata,'imdbID',id);
+  this.setState({favdata:updatedfavdata});
+}
+else
+  {
+  var index;
+  var arr=this.state.favdata;
+  arr.some(function(ele)
+	{
+	if(ele.imdbID === id)
+	ele.Review=review;
+	}
+  );
+    this.setState({favdata:arr});
+  }
   },
   componentDidMount: function()
   {
